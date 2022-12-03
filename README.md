@@ -8,10 +8,31 @@ This project is derived from Ben Alman's [jQuery Tiny Pub/Sub](https://github.co
 
 ### Load JavaScript
 
+#### Option #1: In the browser
+
 ```html
 <!-- In the browser -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="https://unpkg.com/jquery-small-pubsub/dist/pubsub.min.js"></script>
+```
+
+#### Option #2: In Node for a browser app
+
+```shell
+# Install from node package manager
+npm i jquery-small-pubsub
+```
+
+```javascript
+/* In Node */
+const isPubSubLoaded = require('jquery-small-pubsub');
+```
+
+#### Option #3: In Node for a Node app
+
+```shell
+# Install from node package manager
+npm i jquery-small-pubsub jquery jsdom
 ```
 
 ```javascript

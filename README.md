@@ -122,8 +122,8 @@ If you need to set the priority along with context, then provide a `priority` ke
 
 ```javascript
 $.subscribe('eventName', () => console.log('context empty'));
-$.subscribeOnce('eventName', {a: 1, priority: 1}, () => console.log('a = ' + this.a));
-$.subscribe('eventName', 'some string', () => console.log(this));
+$.subscribeOnce('eventName', {a: 1, priority: 1}, function () { console.log('a = ' + this.a); });
+$.subscribe('eventName', 'some string', function () { console.log(this) });
 
 $.publish('eventName');
 // console: 'a = 1' // runs once
@@ -138,19 +138,15 @@ $.publish('eventName');
 ### Pub/Sub as a WordPress filter hook
 
 ```javascript
-$.subscribe('eventName', {compare: 25, priority: 999}, (isValid, someValue) => {
+$.subscribe('eventName', {compare: 25, priority: 999}, function (isValid, someValue) {
 	if (isValid) {
 		return someValue > this.compare;
 	}
 
 	return false;
 });
-$.subscribe('eventName', (isValid, someValue) => {
-	return isValid ? (someValue < 100) : false;
-});
-$.subscribeOnce('eventName', -999, (isValid, someValue) => {
-	return isValid ? (someValue > 75) : false;
-});
+$.subscribe('eventName', (isValid, someValue) => isValid ? (someValue < 100) : false);
+$.subscribeOnce('eventName', -999, (isValid, someValue) => isValid ? (someValue > 75) : false);
 
 let isValid;
 isValid = $.publish('eventName', true, 50);

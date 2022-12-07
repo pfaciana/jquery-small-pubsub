@@ -61,7 +61,7 @@ $.publish('eventName');
 // console: 'Another Listener'
 ```
 
-### Pub/Sub once
+### Pub/Sub Subscribe Once
 
 ```javascript
 $.subscribe('eventName', () => console.log('Executes every time'));
@@ -89,6 +89,22 @@ $.publish('eventName');
 $.unsubscribe('eventName', callback);
 $.publish('eventName');
 // console: 'Hello World'
+```
+
+### Pub/Sub Unsubscribe All
+
+```javascript
+$.subscribe('eventName', () => console.log('Hello World'));
+$.subscribe('eventName', () => console.log('Another Listener'));
+
+$.publish('eventName');
+// console: 'Hello World'
+// console: 'Another Listener'
+
+$.unsubscribeAll();
+
+$.publish('eventName');
+// nothing should get called
 ```
 
 ### Pub/Sub w/ priority (order)
@@ -122,8 +138,12 @@ If you need to set the priority along with context, then provide a `priority` ke
 
 ```javascript
 $.subscribe('eventName', () => console.log('context empty'));
-$.subscribeOnce('eventName', {a: 1, priority: 1}, function () { console.log('a = ' + this.a); });
-$.subscribe('eventName', 'some string', function () { console.log(this) });
+$.subscribeOnce('eventName', {a: 1, priority: 1}, function () {
+	console.log('a = ' + this.a);
+});
+$.subscribe('eventName', 'some string', function () {
+	console.log(this)
+});
 
 $.publish('eventName');
 // console: 'a = 1' // runs once

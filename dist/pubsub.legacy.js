@@ -83,6 +83,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       $.unsubscribe = function () {
         o.off.apply(o, arguments);
       };
+      $.unsubscribeAll = function () {
+        o.off();
+      };
       $.subscribeOnce = function () {
         var parameters = _objectValues(arguments);
         if (parameters.length <= 2) {

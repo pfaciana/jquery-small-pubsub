@@ -47,6 +47,10 @@ module.exports = (function ($, undefined) {
 		o.off.apply(o, arguments);
 	};
 
+	$.unsubscribeAll = function () {
+		o.off();
+	};
+
 	$.subscribeOnce = function () {
 		var parameters = Object.values(arguments);
 		if (parameters.length <= 2) {

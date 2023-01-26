@@ -99,7 +99,10 @@
           name = parameters.shift(),
           events = $.getSubscribedEvents(name);
         events.forEach(function (event) {
-          parameters[0] = event.handler.apply(event.data ?? {}, parameters);
+          const response = event.handler.apply(event.data ?? {}, parameters);
+          if (typeof response !== 'undefined') {
+            parameters[0] = response;
+          }
           if (event.data && ['object', 'function'].includes(typeof event.data) && 'subscribeOnce' in event.data && event.data.subscribeOnce) {
             $.unsubscribe(name, event.handler);
           }

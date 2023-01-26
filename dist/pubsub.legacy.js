@@ -109,7 +109,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           events = $.getSubscribedEvents(name);
         events.forEach(function (event) {
           var _event$data;
-          parameters[0] = event.handler.apply((_event$data = event.data) !== null && _event$data !== void 0 ? _event$data : {}, parameters);
+          var response = event.handler.apply((_event$data = event.data) !== null && _event$data !== void 0 ? _event$data : {}, parameters);
+          if (typeof response !== 'undefined') {
+            parameters[0] = response;
+          }
           if (event.data && ['object', 'function'].includes(_typeof(event.data)) && 'subscribeOnce' in event.data && event.data.subscribeOnce) {
             $.unsubscribe(name, event.handler);
           }
